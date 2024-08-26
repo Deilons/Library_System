@@ -1,9 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
+using DotNetEnv;
+using Library_System.Data;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);Env.Load();var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
+var dbDatabaseName = Environment.GetEnvironmentVariable("DB_DATABASE");
+var dbUser = Environment.GetEnvironmentVariable("DB_USERNAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+var mySqlConnection = $"server={dbHost};port={dbPort};database={dbDatabaseName};uid={dbUser};password={dbPassword}";
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AplicationDbContext>(options =>
+    options.UseMySql(mySqlConnection,ServerVersion.Parse("8.0.20-mysql")));var app = builder.Build();
+    
 
-var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
