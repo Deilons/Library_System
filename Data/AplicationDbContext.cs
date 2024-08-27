@@ -10,7 +10,11 @@ namespace Library_System.Data
     {
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options)
         {
+
         }
-        
+        public DbSet<Models.DocumentType> DocumentTypes { get; set; }
+
+
     }
+
 }
