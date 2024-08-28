@@ -1,6 +1,10 @@
 using DotNetEnv;
-using Library_System.Data;
+using LibrarySystem.Data;
 using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+Env.Load();
 
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
@@ -9,14 +13,13 @@ var dbUser = Environment.GetEnvironmentVariable("DB_USERNAME");
 var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
 var mySqlConnection = $"server={dbHost};port={dbPort};database={dbDatabaseName};uid={dbUser};password={dbPassword}";
-Console.WriteLine("Connection string: " + mySqlConnection);Console.WriteLine("Database name: " + dbDatabaseName);Console.WriteLine("Database name: " + dbDatabaseName);
-DotNetEnv.Env.TraversePath().Load();
-var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AplicationDbContext>(options =>
-    options.UseMySql(mySqlConnection,ServerVersion.Parse("8.0.20-mysql")));var app = builder.Build();
-    
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(mySqlConnection,ServerVersion.Parse("8.0.20-mysql")));
 
+var app = builder.Build();
+
+// Configure the database connection
 
 
 // Configure the HTTP request pipeline.
