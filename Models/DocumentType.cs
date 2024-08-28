@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Library_System.Models
 {
 
-    [Table("document_ypes")]
+    [Table("documen_types")]
     public class DocumentType
     {
         [Key]

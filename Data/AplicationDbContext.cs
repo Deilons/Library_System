@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Library_System.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library_System.Data
+namespace LibrarySystem.Data;
+public class ApplicationDbContext : DbContext
 {
-    public class AplicationDbContext : DbContext
+    public DbSet<DocumentType> DocumentTypes { get; set; }
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options)
-        {
-
-        }
-        public DbSet<Models.DocumentType> DocumentTypes { get; set; }
-
-
     }
 
 }
